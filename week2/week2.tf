@@ -6,7 +6,7 @@ terraform {
     }
   }
 
-  required_version = ">= 0.14.9"
+  required_version = "~> 1.0.4"
 }
 
 provider "aws" {
@@ -79,7 +79,7 @@ resource "aws_launch_template" "asg-launch-template" {
   instance_type                        = var.instance_type
   key_name                             = var.key_name
   vpc_security_group_ids               = [aws_security_group.web-sg.id, aws_security_group.ssh-sg.id]
-  user_data                            = filebase64("${path.module}/init-s3.sh")
+  user_data                            = filebase64("${path.module}/scripts/download.sh")
   iam_instance_profile {
     arn = aws_iam_instance_profile.role-instance-profile.arn
   }
